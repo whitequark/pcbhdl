@@ -32,4 +32,6 @@ setup(
         #     "pcbhdl=pcbhdl.cli:main",
         # ],
     },
+    install_requires=["lxml"],
+    tests_require=["lxml-asserts"]
 )
