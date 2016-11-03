@@ -1,5 +1,5 @@
 import unittest
-from pcbhdl.package import SMTPad
+from pcbhdl.package.pad import *
 
 
 class TestSMTPad(unittest.TestCase):
@@ -38,3 +38,13 @@ class TestSMTPad(unittest.TestCase):
     def test_locate_right_bottom(self):
         pad = SMTPad("1", 1.0, 1.0, right_bottom=(10.0, 10.0))
         self.assertEqual(pad.center, (9.5, 9.5))
+
+
+class TestPTHPad(unittest.TestCase):
+    def test_basic(self):
+        pad = PTHPad("1", drill=1.0, center=(1.0, 1.0))
+        self.assertEqual(pad.name, "1")
+        self.assertEqual(pad.drill, 1.0)
+        self.assertEqual(pad.center, (1.0, 1.0))
+        self.assertEqual(pad.shape, "round")
+        self.assertEqual(pad.rotation, 0.0)
