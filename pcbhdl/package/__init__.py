@@ -80,3 +80,40 @@ class SMTPad(Pad):
                 assert isinstance(right, float)
                 assert isinstance(bottom, float)
                 self.center = right - rot_width / 2, bottom - rot_height / 2
+
+
+class PTHPad(Pad):
+    """Plated through-hole package pad.
+
+    Parameters
+    ----------
+
+    drill : float
+        Diameter of the drilled hole, in mm.
+    center : (float, float)
+        Location of the center of the drilled hole, in mm.
+    shape : one of "square", "round", "octagon", "oblong"
+        Shape of the pad.
+    rotation : float
+        Rotation of the pad, in degrees, from 0 to 90 degrees.
+    """
+
+    _SHAPES = {"square", "round", "octagon", "oblong"}
+
+    def __init__(self, name, drill, center, shape="round", rotation=0.0, diameter=None):
+        super().__init__(name)
+
+        assert isinstance(drill, float)
+        x, y = center
+        assert isinstance(x, float)
+        assert isinstance(y, float)
+        assert shape in self._SHAPES
+        if rotation < 0.0 or rotation > 90.0:
+            raise ValueError("Rotation must be between 0 and 90 degrees")
+        assert diameter is None or isinstance(diameter, float)
+
+        self.drill = drill
+        self.center = x, y
+        self.shape = shape
+        self.rotation = rotation
+        self.diameter = diameter

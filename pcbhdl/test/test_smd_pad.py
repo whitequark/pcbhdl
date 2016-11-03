@@ -4,10 +4,12 @@ from pcbhdl.package import SMTPad
 
 class TestSMTPad(unittest.TestCase):
     def test_basic(self):
-        pad = SMTPad("1", 1.0, 2.0, center=(0.0, 0.0))
+        pad = SMTPad("1", 1.0, 2.0, center=(10.0, 10.0))
         self.assertEqual(pad.name, "1")
         self.assertEqual(pad.width, 1.0)
         self.assertEqual(pad.height, 2.0)
+        self.assertEqual(pad.rotation, 0.0)
+        self.assertEqual(pad.center, (10.0, 10.0))
 
     def test_rotation(self):
         with self.assertRaises(ValueError):
