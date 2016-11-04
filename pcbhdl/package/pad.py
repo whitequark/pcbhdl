@@ -23,14 +23,21 @@ class SMTPad(Pad):
         Width of the pad, in mm.
     height : float
         Height of the pad, in mm.
-    one of center, left_top, right_top, left_bottom, right_bottom : (float, float)
-        Coordinates of the pad, in mm; if specified other than as center, coordinates
-        are normalized to the center.
+    center : (float, float)
+        Location of the center of the pad, in mm.
+    one of left, hcenter, right : float
+        Location of the horizontal center or edge of the pad, in mm; cannot be
+        specified together with ``center``, and is normalized to center.
+    one of top, vcenter, bottom : float
+        Location of the vertical center or edge of the pad, in mm; cannot be
+        specified together with ``center``, and is normalized to center.
     rotation : float
         Rotation of the pad, in degrees, from 0 to 90 degrees.
     """
 
-    _ORIGIN_KINDS = {"center", "left_top", "right_top", "left_bottom", "right_bottom"}
+    _HORZ_KINDS = {"left", "hcenter", "right"}
+    _VERT_KINDS = {"top",  "vcenter", "bottom"}
+    _ALL_KINDS  = _HORZ_KINDS | _VERT_KINDS
 
     def __init__(self, name, width, height, rotation=0.0, **kwargs):
         super().__init__(name)
@@ -40,10 +47,17 @@ class SMTPad(Pad):
         assert isinstance(rotation, float)
         if rotation < 0.0 or rotation > 90.0:
             raise ValueError("Rotation must be between 0 and 90 degrees")
-        if len(kwargs.keys() & self._ORIGIN_KINDS) != 1:
-            raise ValueError("Exactly one of {} must be specified".format(self._ORIGIN_KINDS))
-        if "center" not in kwargs and rotation not in {0.0, 90.0}:
-            raise ValueError("Non-axis-parallel pads must be located via center")
+        if "center" in kwargs:
+            if len(kwargs.keys() & (self._ALL_KINDS)) != 0:
+                raise ValueError("None of {} may be specified together with center".
+                                 format(self._ALL_KINDS))
+        else:
+            if rotation not in {0.0, 90.0}:
+                raise ValueError("Non-axis-parallel pads must be located via center")
+            if len(kwargs.keys() & self._HORZ_KINDS) != 1:
+                raise ValueError("Exactly one of {} must be specified".format(self._HORZ_KINDS))
+            if len(kwargs.keys() & self._VERT_KINDS) != 1:
+                raise ValueError("Exactly one of {} must be specified".format(self._VERT_KINDS))
 
         self.width = width
         self.height = height
@@ -60,26 +74,21 @@ class SMTPad(Pad):
             elif rotation == 90.0:
                 rot_width, rot_height = height, width
 
-            if "left_top" in kwargs:
-                left, top = kwargs["left_top"]
-                assert isinstance(left, float)
-                assert isinstance(top, float)
-                self.center = left + rot_width / 2, top + rot_height / 2
-            elif "right_top" in kwargs:
-                right, top = kwargs["right_top"]
-                assert isinstance(right, float)
-                assert isinstance(top, float)
-                self.center = right - rot_width / 2, top + rot_height / 2
-            elif "left_bottom" in kwargs:
-                left, bottom = kwargs["left_bottom"]
-                assert isinstance(left, float)
-                assert isinstance(bottom, float)
-                self.center = left + rot_width / 2, bottom - rot_height / 2
-            elif "right_bottom" in kwargs:
-                right, bottom = kwargs["right_bottom"]
-                assert isinstance(right, float)
-                assert isinstance(bottom, float)
-                self.center = right - rot_width / 2, bottom - rot_height / 2
+            if "left" in kwargs:
+                hcenter = kwargs["left"] + rot_width / 2
+            elif "hcenter" in kwargs:
+                hcenter = kwargs["hcenter"]
+            elif "right" in kwargs:
+                hcenter = kwargs["right"] - rot_width / 2
+            if "top" in kwargs:
+                vcenter = kwargs["top"] + rot_height / 2
+            elif "vcenter" in kwargs:
+                vcenter = kwargs["vcenter"]
+            elif "bottom" in kwargs:
+                vcenter = kwargs["bottom"] - rot_height / 2
+            assert isinstance(hcenter, float)
+            assert isinstance(vcenter, float)
+            self.center = hcenter, vcenter
 
 
 class PTHPad(Pad):
