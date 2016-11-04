@@ -1,0 +1,1 @@
+from .passive import Resistor
