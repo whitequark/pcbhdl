@@ -24,3 +24,16 @@ class Footprint:
 
         self.name = name
         self.pads = pads
+
+    def pad(self, name):
+        for pad in self.pads:
+            if pad.name == name:
+                return pad
+        raise ValueError("Undefined pad {}".format(pad))
+
+    def has_pad(self, name):
+        try:
+            self.pad(name)
+            return True
+        except ValueError:
+            return False
