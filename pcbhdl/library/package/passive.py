@@ -1,6 +1,10 @@
 from ...device import Footprint, SMTPad
 
 
+__all__ = ["EIATwoTerminalSMT",
+           "EIA_I_0402", "EIA_I_0603", "EIA_I_0805"]
+
+
 class EIATwoTerminalSMT(Footprint):
     """Two-terminal EIA SMT package (0805, 0603, etc).
 

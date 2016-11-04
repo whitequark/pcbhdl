@@ -1,6 +1,9 @@
 from .pad import Pad
 
 
+__all__ = ["Footprint"]
+
+
 class Footprint:
     """Footprint of a single package.
 
@@ -9,7 +12,7 @@ class Footprint:
 
     name : str
         Human-readable, reference name of the package.
-    pads : list of pcbhdl.package.Pad
+    pads : list of pcbhdl.device.Pad
         List of pads defined by the package.
     """
 

@@ -1,3 +1,6 @@
+__all__ = ["Pad", "SMTPad", "PTHPad"]
+
+
 class Pad:
     """Generic package pad.
 
