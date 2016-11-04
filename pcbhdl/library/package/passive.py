@@ -1,4 +1,4 @@
-from ...package import Footprint, SMTPad
+from ...device import Footprint, SMTPad
 
 
 class EIATwoTerminalSMT(Footprint):

@@ -1,6 +1,6 @@
 import unittest
-from pcbhdl.package.pad import *
-from pcbhdl.package.footprint import *
+from pcbhdl.device.pad import *
+from pcbhdl.device.footprint import *
 
 
 class TestFootprint(unittest.TestCase):

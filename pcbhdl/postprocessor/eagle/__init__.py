@@ -1,7 +1,7 @@
 import os
 from lxml import etree
 from lxml.builder import ElementMaker
-from pcbhdl.package.pad import *
+from pcbhdl.device.pad import *
 
 
 __all__ = ["EaglePostprocessor"]

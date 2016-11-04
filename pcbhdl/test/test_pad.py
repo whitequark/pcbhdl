@@ -1,5 +1,5 @@
 import unittest
-from pcbhdl.package.pad import *
+from pcbhdl.device.pad import *
 
 
 class TestSMTPad(unittest.TestCase):
