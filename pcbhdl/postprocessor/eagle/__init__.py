@@ -66,3 +66,8 @@ class EaglePostprocessor:
             "shape": self._PTH_SHAPE_MAP[pad.shape],
             "rot": "R{:.1f}".format(pad.rotation)
         })
+
+    def visit_Footprint(self, footprint):
+        return E.package({
+            "name": footprint.name,
+        }, *[self.visit_Pad(pad) for pad in footprint.pads])
