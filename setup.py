@@ -13,7 +13,7 @@ setup(
     author_email="whitequark@whitequark.org",
     #url="https://pcbhdl.org",
     download_url="https://github.com/pcbhdl/pcbhdl",
-    license="BSD-3-clause",
+    license="BSD-0-clause",
     platforms=["Any"],
     keywords="HDL PCB hardware design",
     classifiers=[
