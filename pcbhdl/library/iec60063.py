@@ -63,6 +63,18 @@ IEC60063_SERIES = {
 
 
 def iec60063_nearest(series, value):
+    """Round component value to the closest value from the E series.
+
+    Parameters
+    ----------
+
+    series : str
+        E series to use, one of: "E3", "E6", "E12", "E24", "E48", "E96", "E192".
+
+    value : float
+        Value to be rounded.
+    """
+
     exponent = int(math.log10(value))
     mantissa = Decimal(value / 10 ** exponent).quantize(series[0])
     index = bisect(series, mantissa)

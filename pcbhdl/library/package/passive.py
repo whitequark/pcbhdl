@@ -13,8 +13,10 @@ class EIATwoTerminalSMT(Footprint):
 
     pad_width : float
         Dimension of pad across the long side of package, in mm.
+
     pad_height : float
         Dimension of pad across the short side of package, in mm.
+
     package_width : float
         Distance between outermost pad edges across the long side of the package, in mm.
     """
