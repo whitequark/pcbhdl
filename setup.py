@@ -38,7 +38,7 @@ setup(
     tests_require=[
         "lxml-asserts",
         # documentation requires
-        "sphinx",
-        "sphinx_rtd_theme"
+        "Sphinx",
+        "sphinx-rtd-theme"
     ],
 )
