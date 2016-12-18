@@ -37,18 +37,22 @@ class SMTRectPad(Pad):
         specified together with ``center``, and is normalized to center.
     rotation : float
         Rotation of the pad, in degrees, from 0 to 90 degrees.
+    roundness : float
+        Roundness of the pad corners, in percents, where the diameter of the corner circular
+        arc is the percentage of the smaller side.
     """
 
     _HORZ_KINDS = {"left", "hcenter", "right"}
     _VERT_KINDS = {"top",  "vcenter", "bottom"}
     _ALL_KINDS  = _HORZ_KINDS | _VERT_KINDS
 
-    def __init__(self, name, width, height, rotation=0.0, **kwargs):
+    def __init__(self, name, width, height, rotation=0.0, roundness=0, **kwargs):
         super().__init__(name)
 
         assert isinstance(width, float)
         assert isinstance(height, float)
         assert isinstance(rotation, float)
+        assert isinstance(roundness, int)
         if rotation < 0.0 or rotation > 90.0:
             raise ValueError("Rotation must be between 0 and 90 degrees")
         if "center" in kwargs:
@@ -62,10 +66,13 @@ class SMTRectPad(Pad):
                 raise ValueError("Exactly one of {} must be specified".format(self._HORZ_KINDS))
             if len(kwargs.keys() & self._VERT_KINDS) != 1:
                 raise ValueError("Exactly one of {} must be specified".format(self._VERT_KINDS))
+        if roundness not in range(0, 100):
+            raise ValueError("Roundness must be between 0 and 100%")
 
         self.width = width
         self.height = height
         self.rotation = rotation
+        self.roundness = roundness
 
         if "center" in kwargs:
             x, y = kwargs["center"]

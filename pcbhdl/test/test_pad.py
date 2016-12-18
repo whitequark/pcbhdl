@@ -21,6 +21,16 @@ class TestSMTRectPad(unittest.TestCase):
         with self.assertRaises(ValueError):
             SMTRectPad("1", 1.0, 1.0, 120.0, center=(0.0, 0.0))
 
+    def test_roundness(self):
+        pad = SMTRectPad("1", 1.0, 1.0, roundness=30, center=(0.0, 0.0))
+        self.assertEqual(pad.roundness, 30)
+
+    def test_roundness_bad(self):
+        with self.assertRaises(ValueError):
+            SMTRectPad("1", 1.0, 1.0, roundness=-1, center=(0.0, 0.0))
+        with self.assertRaises(ValueError):
+            SMTRectPad("1", 1.0, 1.0, roundness=120, center=(0.0, 0.0))
+
     def test_locate_center(self):
         pad = SMTRectPad("1", 1.0, 1.0, center=(10.0, 10.0))
         self.assertEqual(pad.center, (10.0, 10.0))

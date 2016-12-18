@@ -46,7 +46,8 @@ class EaglePostprocessor:
             "dx": pad.width,
             "dy": pad.height,
             "layer": 0, # FIXME?
-            "rot": "R{:.1f}".format(pad.rotation)
+            "rot": "R{:.1f}".format(pad.rotation),
+            "roundness": pad.roundness
         })
 
     _PTH_SHAPE_MAP = {
