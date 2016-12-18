@@ -1,4 +1,4 @@
-__all__ = ["Pad", "SMTRectPad", "PTHPad"]
+__all__ = ["Pad", "SMTRectPad", "SMTRoundPad", "PTHPad"]
 
 
 class Pad:
@@ -100,6 +100,30 @@ class SMTRectPad(Pad):
             assert isinstance(hcenter, float)
             assert isinstance(vcenter, float)
             self.center = hcenter, vcenter
+
+
+class SMTRoundPad(Pad):
+    """Round surface-mount package pad.
+
+    Parameters
+    ----------
+
+    diameter : float
+        Diameter of the pad, in mm.
+    center : (float, float)
+        Location of the center of the pad, in mm.
+    """
+
+    def __init__(self, name, diameter, center):
+        super().__init__(name)
+
+        assert isinstance(diameter, float)
+        self.diameter = diameter
+
+        x, y = center
+        assert isinstance(x, float)
+        assert isinstance(y, float)
+        self.center = x, y
 
 
 class PTHPad(Pad):

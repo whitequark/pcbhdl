@@ -70,6 +70,13 @@ class TestSMTRectPad(unittest.TestCase):
             SMTRectPad("1", 1.0, 1.0, top=1.0)
 
 
+class TestSMTRoundPad(unittest.TestCase):
+    def test_basic(self):
+        pad = SMTRoundPad("1", diameter=1.0, center=(2.0, 3.0))
+        self.assertEqual(pad.diameter, 1.0)
+        self.assertEqual(pad.center, (2.0, 3.0))
+
+
 class TestPTHPad(unittest.TestCase):
     def test_basic(self):
         pad = PTHPad("1", drill=1.0, center=(1.0, 1.0))
