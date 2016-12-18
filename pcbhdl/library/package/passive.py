@@ -1,4 +1,4 @@
-from ...device import Footprint, SMTPad
+from ...device import Footprint, SMTRectPad
 
 
 __all__ = ["EIATwoTerminalSMT",
@@ -27,10 +27,10 @@ class EIATwoTerminalSMT(Footprint):
         assert isinstance(package_width, float)
 
         pads = [
-            SMTPad(name="1", width=pad_width, height=pad_height,
-                   vcenter=0.0, left=-package_width / 2),
-            SMTPad(name="2", width=pad_width, height=pad_height,
-                   vcenter=0.0, right=package_width / 2)
+            SMTRectPad(name="1", width=pad_width, height=pad_height,
+                       vcenter=0.0, left=-package_width / 2),
+            SMTRectPad(name="2", width=pad_width, height=pad_height,
+                       vcenter=0.0, right=package_width / 2)
         ]
         super().__init__(name, pads)
 

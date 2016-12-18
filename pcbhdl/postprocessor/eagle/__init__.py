@@ -31,14 +31,16 @@ class EaglePostprocessor:
         return eagle_dtd.validate(doc)
 
     def visit_Pad(self, pad):
-        if isinstance(pad, SMTPad):
-            return self.visit_SMTPad(pad)
+        if isinstance(pad, SMTRectPad):
+            return self.visit_SMTRectPad(pad)
+        if isinstance(pad, SMTRoundPad):
+            return self.visit_SMTRoundPad(pad)
         elif isinstance(pad, PTHPad):
             return self.visit_PTHPad(pad)
         else:
             raise NotImplementedError("Cannot convert pad {}".format(pad))
 
-    def visit_SMTPad(self, pad):
+    def visit_SMTRectPad(self, pad):
         return E.smd({
             "name": pad.name,
             "x": pad.center[0],
@@ -46,7 +48,19 @@ class EaglePostprocessor:
             "dx": pad.width,
             "dy": pad.height,
             "layer": 0, # FIXME?
-            "rot": "R{:.1f}".format(pad.rotation)
+            "rot": "R{:.1f}".format(pad.rotation),
+            "roundness": pad.roundness
+        })
+
+    def visit_SMTRoundPad(self, pad):
+        return E.smd({
+            "name": pad.name,
+            "x": pad.center[0],
+            "y": pad.center[1],
+            "dx": pad.diameter,
+            "dy": pad.diameter,
+            "layer": 0, # FIXME?
+            "roundness": 100
         })
 
     _PTH_SHAPE_MAP = {
