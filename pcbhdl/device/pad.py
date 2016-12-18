@@ -1,4 +1,4 @@
-__all__ = ["Pad", "SMTPad", "PTHPad"]
+__all__ = ["Pad", "SMTRectPad", "PTHPad"]
 
 
 class Pad:
@@ -17,7 +17,7 @@ class Pad:
         self.name = name
 
 
-class SMTPad(Pad):
+class SMTRectPad(Pad):
     """Rectangular surface-mount package pad.
 
     Parameters

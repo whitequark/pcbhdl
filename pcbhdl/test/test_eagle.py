@@ -13,9 +13,9 @@ class TestEaglePostprocessor(unittest.TestCase, LxmlTestCaseMixin):
     def assertValid(self, doc):
         self.assertTrue(self.post.validate(doc))
 
-    def test_smt_pad(self):
-        pad = SMTPad("1", width=1.0, height=2.0, center=(10.0, 10.0), rotation=45.0)
-        doc = self.post.visit_SMTPad(pad)
+    def test_smt_rect_pad(self):
+        pad = SMTRectPad("1", width=1.0, height=2.0, center=(10.0, 10.0), rotation=45.0)
+        doc = self.post.visit_SMTRectPad(pad)
         self.assertValid(doc)
         self.assertXmlEqual(doc, etree.XML("""
             <smd name="1" x="10.0" y="10.0" dx="1.0" dy="2.0" layer="0" rot="R45.0"/>
@@ -31,7 +31,7 @@ class TestEaglePostprocessor(unittest.TestCase, LxmlTestCaseMixin):
         """))
 
     def test_footprint(self):
-        pad = SMTPad("1", width=1.0, height=2.0, center=(0.0, 0.0))
+        pad = SMTRectPad("1", width=1.0, height=2.0, center=(0.0, 0.0))
         fp  = Footprint("SMD1", pads=[pad])
         doc = self.post.visit_Footprint(fp)
         self.assertValid(doc)

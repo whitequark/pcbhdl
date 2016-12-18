@@ -5,9 +5,9 @@ from pcbhdl.device import *
 class MockComponent(Component):
     name_prefix = "U"
     footprint = Footprint("SMD1", pads=[
-        SMTPad("1", 1.0, 1.0, center=(0.0, 0.0)),
-        SMTPad("2", 1.0, 1.0, center=(2.0, 0.0)),
-        SMTPad("3", 1.0, 1.0, center=(4.0, 0.0)),
+        SMTRectPad("1", 1.0, 1.0, center=(0.0, 0.0)),
+        SMTRectPad("2", 1.0, 1.0, center=(2.0, 0.0)),
+        SMTRectPad("3", 1.0, 1.0, center=(4.0, 0.0)),
     ])
     signals = {
         "A": "1",

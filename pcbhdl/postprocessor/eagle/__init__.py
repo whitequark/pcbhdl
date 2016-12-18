@@ -31,14 +31,14 @@ class EaglePostprocessor:
         return eagle_dtd.validate(doc)
 
     def visit_Pad(self, pad):
-        if isinstance(pad, SMTPad):
-            return self.visit_SMTPad(pad)
+        if isinstance(pad, SMTRectPad):
+            return self.visit_SMTRectPad(pad)
         elif isinstance(pad, PTHPad):
             return self.visit_PTHPad(pad)
         else:
             raise NotImplementedError("Cannot convert pad {}".format(pad))
 
-    def visit_SMTPad(self, pad):
+    def visit_SMTRectPad(self, pad):
         return E.smd({
             "name": pad.name,
             "x": pad.center[0],
