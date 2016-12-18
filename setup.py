@@ -33,7 +33,8 @@ setup(
         # ],
     },
     install_requires=[
-        "lxml"
+        "lxml",
+        "sexpdata"
     ],
     tests_require=[
         "lxml-asserts",
