@@ -33,6 +33,8 @@ class EaglePostprocessor:
     def visit_Pad(self, pad):
         if isinstance(pad, SMTRectPad):
             return self.visit_SMTRectPad(pad)
+        if isinstance(pad, SMTRoundPad):
+            return self.visit_SMTRoundPad(pad)
         elif isinstance(pad, PTHPad):
             return self.visit_PTHPad(pad)
         else:
@@ -48,6 +50,17 @@ class EaglePostprocessor:
             "layer": 0, # FIXME?
             "rot": "R{:.1f}".format(pad.rotation),
             "roundness": pad.roundness
+        })
+
+    def visit_SMTRoundPad(self, pad):
+        return E.smd({
+            "name": pad.name,
+            "x": pad.center[0],
+            "y": pad.center[1],
+            "dx": pad.diameter,
+            "dy": pad.diameter,
+            "layer": 0, # FIXME?
+            "roundness": 100
         })
 
     _PTH_SHAPE_MAP = {
