@@ -30,7 +30,7 @@ class Resistor(Component):
         The "E12" series is used by default.
     """
 
-    name_prefix = "R"
+    refdes_prefix = "R"
     signals = {"1": "1", "2": "2"}
 
     def __init__(self, value, **kwargs):

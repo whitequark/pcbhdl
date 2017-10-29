@@ -3,7 +3,7 @@ from pcbhdl.device import *
 
 
 class MockComponent(Component):
-    name_prefix = "U"
+    refdes_prefix = "U"
     footprint = Footprint("SMD1", pads=[
         SMTRectPad("1", 1.0, 1.0, center=(0.0, 0.0)),
         SMTRectPad("2", 1.0, 1.0, center=(2.0, 0.0)),

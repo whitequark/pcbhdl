@@ -1,3 +1,4 @@
+from ..tools import tracer
 from .pad import Pad
 from .footprint import Footprint
 
@@ -11,7 +12,7 @@ class Component:
     Class attributes
     ----------------
 
-    name_prefix : str
+    refdes_prefix : str
         Reference designator prefix (e.g. "R" for resistors).
 
     footprint : pcbhdl.device.Footprint
@@ -25,7 +26,10 @@ class Component:
     Attributes
     ----------
 
-    name : str
+    name : list of str
+        Full hierarchical name.
+
+    refdes : str
         Full reference designator, starting with the prefix (e.g. "R1" for a resistor).
 
     manufacturer : None or str
@@ -38,12 +42,12 @@ class Component:
         Mapping from supplier name to supplier order code, e.g. {"Digi-Key": "490-4516-2-ND"}.
     """
 
-    name_prefix = None
+    refdes_prefix = None
     footprint = None
     signals = None
 
-    def __init__(self, manufacturer=None, part_number=None, order_codes=None):
-        assert isinstance(self.name_prefix, str)
+    def __init__(self, name=None, manufacturer=None, part_number=None, order_codes=None):
+        assert isinstance(self.refdes_prefix, str)
         assert isinstance(self.footprint, Footprint)
         assert isinstance(self.signals, dict)
         for signal in self.signals:
@@ -66,3 +70,7 @@ class Component:
         self.manufacturer = manufacturer
         self.part_number = part_number
         self.order_codes = order_codes
+
+        assert name is None or isinstance(name, str)
+        self._backtrace = tracer.trace_back(name)
+        print(self._backtrace)
